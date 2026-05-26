@@ -1,10 +1,10 @@
-import Nav from "@/components/Nav";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Music from "@/components/Music";
-import Tutoring from "@/components/Tutoring";
-import Contact from "@/components/Contact";
-import ClientInit from "@/components/ClientInit";
+import Nav from "../components/Nav";
+import Hero from "../components/Hero";
+import About from "../components/About";
+import Music from "../components/Music";
+import Tutoring from "../components/Tutoring";
+import Contact from "../components/Contact";
+import ClientInit from "../components/ClientInit";
 
 export default function Home() {
   return (
