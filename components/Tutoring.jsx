@@ -4,14 +4,33 @@ export default function Tutoring() {
     { n: "02", name: "Calculus AB & BC", desc: "Limits, derivatives, integrals, series" },
     { n: "03", name: "Elementary Analysis & Intro to Proofs", desc: "ε-δ definitions, sequences, proof writing, rigor" },
     { n: "04", name: "Data Analysis", desc: "Applied computational mathematics" },
-    { n: "05", name: "Math Program Preparation", desc: "Application strategy, proof writing" },
-    { n: "06", name: "Multi-disciplinary, Applied Research", desc: "Finance, data science, NLP, applied mathematics" },
+    { n: "05", name: "Multi-disciplinary, Applied Research", desc: "Finance, data science, NLP, applied mathematics" },
+    { n: "06", name: "Other Subjects", desc: "Honors & AP Chemistry, AP CS A, Piano, Music Theory" },
   ];
   const creds = [
-    { n: "01", name: "Real Analysis — Stanford ULO Math & Physics Program", desc: "Completed university-level Real Analysis through Stanford University's undergraduate online program", tag: "Stanford" },
-    { n: "02", name: "SUMAC — Stanford University Mathematics Camp", desc: "Attending SUMAC this summer — a selective residential mathematics program at Stanford", tag: "Summer 2026" },
-    { n: "03", name: "Pre-print: NLP CPI Nowcasting — SSRN", desc: "Independent research on CPI nowcasting using natural language processing and mathematical modeling, published on the Social Science Research Network", tag: "Research" },
+    {
+      n: "01",
+      name: "Real Analysis — Stanford ULO Math & Physics Program",
+      desc: "Completed university-level Real Analysis through Stanford University's undergraduate online program",
+      tag: "Stanford",
+      href: null,
+    },
+    {
+      n: "02",
+      name: "SUMAC — Stanford University Mathematics Camp",
+      desc: "Attending SUMAC this summer — a selective residential mathematics program at Stanford",
+      tag: "Summer 2026",
+      href: null,
+    },
+    {
+      n: "03",
+      name: "Pre-print: NLP CPI Nowcasting — SSRN",
+      desc: "Independent research on CPI nowcasting using natural language processing and mathematical modeling",
+      tag: "Research",
+      href: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6515078",
+    },
   ];
+
   return (
     <div className="sec" id="tutoring">
       <div className="sec-tag fi">Mathematics Tutoring</div>
@@ -21,7 +40,7 @@ export default function Tutoring() {
         <p>
           I am happy to share my knowledge across a wide range of topics — as many great teachers have
           done for me. My tutoring is primarily aimed at <strong>high school and late middle school
-          students</strong> preparing for advanced coursework, competitions, or math programs. That said,
+            students</strong> preparing for advanced coursework, competitions, or math programs. That said,
           I am more than happy to work with any motivated student at any level. I genuinely believe that
           introducing applied mathematical thinking, computational methods, and the fundamentals of
           analysis <strong>early</strong> — even at the elementary level — is both possible and
@@ -60,9 +79,9 @@ export default function Tutoring() {
           <p>Apply mathematics to finance, physics, data science, and NLP through guided independent projects with real scope and ambition.</p>
         </div>
         <div className="approach">
-          <div className="approach-icon">&#9678;</div>
-          <h4>Math Program Guidance</h4>
-          <p>My experiences in math program applications and how to craft your narrative — PROMYS, Ross, Canada/USA Mathcamp, MathILy, PRIMES, and more.</p>
+          <div className="approach-icon">&#9733;</div>
+          <h4>Discovering Passion</h4>
+          <p>Fostering an understanding of how applied mathematics brings real contribution to a variety of fields &mdash; and the creativity that exists in mathematics far beyond the academic setting.</p>
         </div>
       </div>
 
@@ -76,7 +95,18 @@ export default function Tutoring() {
                 <div className="cname">{c.name}</div>
                 <div className="cdesc">{c.desc}</div>
               </div>
-              <span className="cred-tag">{c.tag}</span>
+              {c.href ? (
+                <a
+                  href={c.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cred-tag cred-tag-link"
+                >
+                  {c.tag} &rarr;
+                </a>
+              ) : (
+                <span className="cred-tag">{c.tag}</span>
+              )}
             </div>
           ))}
         </div>
@@ -97,7 +127,7 @@ export default function Tutoring() {
         <h3>Pricing &amp; Accessibility</h3>
         <p>
           I believe <strong>a student&rsquo;s financial situation should never determine the quality of
-          their mathematical education</strong>. Pricing is entirely negotiable and set on a case-by-case
+            their mathematical education</strong>. Pricing is entirely negotiable and set on a case-by-case
           basis according to individual financial need &mdash; no fixed rates, no barriers. My goal is to
           give every student who wants to go deeper in mathematics the genuine opportunity to do so.
           Please reach out openly and we will find an arrangement that works for you.

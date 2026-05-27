@@ -3,7 +3,7 @@ import { useState } from "react";
 
 export default function Contact() {
   const [form, setForm] = useState({ firstName: "", lastName: "", email: "", enquiry: "", message: "" });
-  const [status, setStatus] = useState("idle"); // idle | sending | success | error
+  const [status, setStatus] = useState("idle");
 
   const handleChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
@@ -11,12 +11,9 @@ export default function Contact() {
     e.preventDefault();
     setStatus("sending");
     try {
-      const res = await fetch("https://formspree.io/f/mqejggkn", {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify(form),
       });
       setStatus(res.ok ? "success" : "error");
@@ -30,12 +27,12 @@ export default function Contact() {
       <div className="sec-tag fi">Contact</div>
       <h2 className="sec-head fi" style={{ transitionDelay: "0.1s" }}>Let&rsquo;s connect.</h2>
       <div className="contact-grid">
-        {/* Left: direct info */}
+
         <div className="fi">
           <div className="contact-info">
             <h3>Reach me directly</h3>
             <p className="lead">
-              Whether you are a student, a parent, or just curious — I would love to hear from you.
+              Whether you are a student, a parent, or just curious &mdash; I would love to hear from you.
               No obligation, no pressure.
             </p>
             <div className="contact-links">
@@ -55,7 +52,12 @@ export default function Contact() {
                 </div>
                 <span className="cl-arrow">&rarr;</span>
               </a>
-              <a href="https://papers.ssrn.com" target="_blank" rel="noopener noreferrer" className="contact-link-row">
+              <a
+                href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6515078"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-link-row"
+              >
                 <div className="cl-icon">&part;</div>
                 <div className="cl-body">
                   <div className="cl-type">Research &middot; SSRN</div>
@@ -65,14 +67,13 @@ export default function Contact() {
               </a>
             </div>
             <div className="meta-notes">
-              <div className="meta-note"><div className="mn-lbl">Response time</div><div className="mn-val">Within 24 hours · All time zones welcome</div></div>
-              <div className="meta-note"><div className="mn-lbl">Tutoring sessions</div><div className="mn-val">Remote · 1-on-1 · Flexible scheduling</div></div>
-              <div className="meta-note"><div className="mn-lbl">Pricing</div><div className="mn-val">Needs-based · Always negotiable · No barriers</div></div>
+              <div className="meta-note"><div className="mn-lbl">Response time</div><div className="mn-val">Within 24 hours &middot; All time zones welcome</div></div>
+              <div className="meta-note"><div className="mn-lbl">Tutoring sessions</div><div className="mn-val">Remote &middot; 1-on-1 &middot; Flexible scheduling</div></div>
+              <div className="meta-note"><div className="mn-lbl">Pricing</div><div className="mn-val">Needs-based &middot; Always negotiable &middot; No barriers</div></div>
             </div>
           </div>
         </div>
 
-        {/* Right: form */}
         <div className="fi" style={{ transitionDelay: "0.15s" }}>
           {status === "success" ? (
             <div className="form-success">
@@ -109,8 +110,9 @@ export default function Contact() {
                   <select id="enquiry" name="enquiry" value={form.enquiry} onChange={handleChange}>
                     <option value="">Select a topic&hellip;</option>
                     <option>Math Tutoring</option>
-                    <option>Math Camp Guidance</option>
-                    <option>Real-World Project Mentorship</option>
+                    <option>AP Chemistry / AP CS A Tutoring</option>
+                    <option>Piano &amp; Music Theory Tutoring</option>
+                    <option>Applied Research Mentorship</option>
                     <option>Music / Music of the Youth</option>
                     <option>Research Discussion</option>
                     <option>Other</option>
