@@ -5,10 +5,12 @@ import Music from "../components/Music";
 import Tutoring from "../components/Tutoring";
 import Contact from "../components/Contact";
 import ClientInit from "../components/ClientInit";
+import BackgroundParticles from "../components/BackgroundParticles";
 
 export default function Home() {
   return (
     <>
+      <BackgroundParticles />
       <ClientInit />
       <Nav />
       <Hero />
@@ -21,8 +23,8 @@ export default function Home() {
       <hr className="sep" />
       <Contact />
       <footer>
-        <span>© 2026 Sean Dai · All rights reserved</span>
-        <span>Mathematics · Music · Research</span>
+        <span>&#169; 2026 Sean Dai &middot; All rights reserved</span>
+        <span>Mathematics &middot; Music &middot; Research</span>
       </footer>
     </>
   );

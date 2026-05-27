@@ -4,7 +4,6 @@ export default function Hero() {
   return (
     <section id="hero">
       <div className="hero-inner">
-        {/* Left column */}
         <div className="fi">
           <div className="hero-eyebrow">
             <div className="blink-dot" />
@@ -12,14 +11,15 @@ export default function Hero() {
           </div>
           <p className="hero-name">Hi, I&rsquo;m Sean Dai &mdash;</p>
           <h1 className="hero-title">
-            <em>Mathematics.</em><br />
-            <span className="dim">Music.</span><br />
-            <em>Mastered.</em>
+            <em>Curiosity.</em><br />
+            <span className="dim">Structure.</span><br />
+            <em>Discovery.</em>
           </h1>
           <p className="hero-intro">
             A <strong>classically trained pianist</strong> and{" "}
-            <strong>mathematics researcher</strong> who believes the two disciplines share the same soul.
-            I tutor students not to pass exams, but to discover a genuine love for mathematical thinking.
+            <strong>math enthusiast</strong> who believes in passion over perfection.
+            I want to teach students not only to pass exams, but also to discover a
+            genuine love for mathematical thinking.
           </p>
           <div className="hero-tags">
             <span>Piano Performance</span>
@@ -33,13 +33,11 @@ export default function Hero() {
           <div className="hero-foot">Matrix Engine V1 &middot; 2026</div>
         </div>
 
-        {/* Right column — interactive sphere */}
         <div className="fi" style={{ transitionDelay: "0.18s" }}>
           <ParticleSphere />
         </div>
       </div>
 
-      {/* Scroll hint */}
       <div className="scroll-hint">
         <span>Scroll</span>
         <svg className="scroll-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
