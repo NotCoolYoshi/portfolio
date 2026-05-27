@@ -10,7 +10,6 @@ export default function ParticleSphere() {
     if (!cv) return;
     const ctx = cv.getContext("2d");
 
-    // ── Fibonacci-lattice sphere particles ──
     const N   = 1200;
     const pts = [];
     const PHI = Math.PI * (3 - Math.sqrt(5));
@@ -19,15 +18,12 @@ export default function ParticleSphere() {
       const r  = Math.sqrt(Math.max(0, 1 - y * y));
       const th = PHI * i;
       pts.push({
-        ox: Math.cos(th) * r,
-        oy: y,
-        oz: Math.sin(th) * r,
+        ox: Math.cos(th) * r, oy: y, oz: Math.sin(th) * r,
         bright: Math.random() > 0.87,
         phase:  Math.random() * Math.PI * 2,
       });
     }
 
-    // ── Coloured accent orbs ──
     const rawOrbs = [
       { ox:  0.55, oy:  0.62, oz:  0.56, col: "#477EEB", r: 7 },
       { ox: -0.70, oy:  0.00, oz:  0.71, col: "#F59E0B", r: 6 },
@@ -39,7 +35,6 @@ export default function ParticleSphere() {
       return { ...o, ox: o.ox / l, oy: o.oy / l, oz: o.oz / l };
     });
 
-    // ── Rotation state ──
     let ry = 0, rx = 0.28;
     let vy = 0.003, vx = 0;
     let dragging = false, lx = 0, ly = 0;
@@ -53,21 +48,18 @@ export default function ParticleSphere() {
       return [x1, y2, z2];
     }
 
-    // ── Interaction ──
     const onMouseDown = (e) => { dragging = true; lx = e.clientX; ly = e.clientY; };
     const onMouseUp   = ()  => { dragging = false; };
     const onMouseMove = (e) => {
       if (!dragging) return;
-      vy += (e.clientX - lx) * 0.003;
-      vx += (e.clientY - ly) * 0.003;
+      vy += (e.clientX - lx) * 0.003; vx += (e.clientY - ly) * 0.003;
       lx = e.clientX; ly = e.clientY;
     };
     const onTouchStart = (e) => { dragging = true; lx = e.touches[0].clientX; ly = e.touches[0].clientY; e.preventDefault(); };
     const onTouchEnd   = ()  => { dragging = false; };
     const onTouchMove  = (e) => {
       if (!dragging) return;
-      vy += (e.touches[0].clientX - lx) * 0.003;
-      vx += (e.touches[0].clientY - ly) * 0.003;
+      vy += (e.touches[0].clientX - lx) * 0.003; vx += (e.touches[0].clientY - ly) * 0.003;
       lx = e.touches[0].clientX; ly = e.touches[0].clientY;
     };
 
@@ -91,25 +83,21 @@ export default function ParticleSphere() {
 
       if (dragging) { vy *= 0.86; vx *= 0.86; }
       else          { vy += (0.003 - vy) * 0.045; vx *= 0.96; }
-      ry += vy;
-      rx += vx;
+      ry += vy; rx += vx;
       rx = Math.max(-0.95, Math.min(0.95, rx));
 
       // Sphere outline
       ctx.beginPath();
       ctx.arc(cx, cy, R, 0, Math.PI * 2);
       ctx.strokeStyle = "rgba(129,140,248,0.07)";
-      ctx.lineWidth = 1;
-      ctx.stroke();
+      ctx.lineWidth = 1; ctx.stroke();
 
       // Equatorial ring
       ctx.beginPath();
       ctx.ellipse(cx, cy, R, R * Math.abs(Math.cos(rx)), 0, 0, Math.PI * 2);
       ctx.strokeStyle = "rgba(129,140,248,0.04)";
-      ctx.lineWidth = 0.7;
-      ctx.stroke();
+      ctx.lineWidth = 0.7; ctx.stroke();
 
-      // Transform & sort particles
       const tpts = pts
         .map((p) => { const [x, y, z] = rot(p.ox, p.oy, p.oz, rx, ry); return { sx: cx + x * R, sy: cy - y * R, z, bright: p.bright, phase: p.phase }; })
         .sort((a, b) => a.z - b.z);
@@ -119,15 +107,12 @@ export default function ParticleSphere() {
         const pulse = p.bright ? 0.85 + 0.15 * Math.sin(tick * 0.04 + p.phase) : 1;
         const alpha = p.bright ? (0.20 + t * 0.72) * pulse : 0.05 + t * 0.40;
         const sz    = p.bright ? 0.5 + t * 1.3 : 0.3 + t * 0.85;
-        ctx.beginPath();
-        ctx.arc(p.sx, p.sy, sz, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(205,215,255,${alpha})`;
-        ctx.fill();
+        ctx.beginPath(); ctx.arc(p.sx, p.sy, sz, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(205,215,255,${alpha})`; ctx.fill();
       });
 
       const torbs = orbs.map((o) => { const [x, y, z] = rot(o.ox, o.oy, o.oz, rx, ry); return { ...o, tx: cx + x * R, ty: cy - y * R, tz: z }; });
 
-      // Orb connection lines
       torbs.forEach((a, i) => {
         torbs.slice(i + 1).forEach((b) => {
           if (Math.min(a.tz, b.tz) < -0.1) return;
@@ -137,7 +122,6 @@ export default function ParticleSphere() {
         });
       });
 
-      // Draw orbs back-to-front
       [...torbs].sort((a, b) => a.tz - b.tz).forEach((o) => {
         if (o.tz < -0.45) return;
         const t    = (o.tz + 1) / 2;
@@ -153,17 +137,6 @@ export default function ParticleSphere() {
         ctx.fillStyle = "rgba(255,255,255,0.38)"; ctx.fill();
         ctx.globalAlpha = 1;
       });
-
-      // Corner brackets
-      const br = 22, m = 18;
-      ctx.strokeStyle = "rgba(129,140,248,0.26)";
-      ctx.lineWidth = 1; ctx.lineCap = "square";
-      ctx.beginPath();
-      ctx.moveTo(m, m + br); ctx.lineTo(m, m); ctx.lineTo(m + br, m);
-      ctx.moveTo(W - m - br, m); ctx.lineTo(W - m, m); ctx.lineTo(W - m, m + br);
-      ctx.moveTo(W - m, H - m - br); ctx.lineTo(W - m, H - m); ctx.lineTo(W - m - br, H - m);
-      ctx.moveTo(m + br, H - m); ctx.lineTo(m, H - m); ctx.lineTo(m, H - m - br);
-      ctx.stroke();
 
       animRef.current = requestAnimationFrame(draw);
     }
@@ -186,10 +159,7 @@ export default function ParticleSphere() {
 
   return (
     <div className="canvas-frame" id="sphere-wrap">
-      <span className="c-corner c-tl">1200 nodes</span>
-      <span className="c-corner c-tr">drag to rotate</span>
       <canvas ref={canvasRef} />
-      <div className="c-label">Particle Field &middot; Intelligence Nexus</div>
     </div>
   );
 }
